@@ -1,23 +1,26 @@
-# 🚀 Blog API (Django REST Framework)
+# 🚀 DRF Blog API
 
-A production-ready Blog API built with Django REST Framework, implementing advanced backend concepts such as authentication, permissions, nested comments, and optimized queries.
+A production-oriented Blog API built with Django REST Framework, implementing authentication, clean architecture, API versioning, and automated testing.
 
 ---
 
 ## 🔥 Features
 
-* JWT Authentication (Login / Refresh Tokens)
-* Owner-based permissions (secure APIs)
-* Admin override system
-* Blog Posts CRUD
-* Category management
-* Nested comment system (replies)
-* Soft delete (no permanent data loss)
-* Service layer architecture
-* Filtering, Search, Ordering
-* Pagination
-* Custom API response format
-* Query optimization (`select_related`, `prefetch_related`)
+* ✅ API Versioning (`/api/v1/`)
+* 🔐 JWT Authentication (Login + Refresh)
+* 🧱 Structured Auth Routes (`/api/auth/`)
+* 🛡️ Permission-based Access Control
+* 📝 Blog Posts CRUD
+* 💬 Nested Comment System (replies supported)
+* ♻️ Soft Delete (no permanent data loss)
+* 🧠 Service Layer Architecture
+* 🔍 Filtering, Search, Ordering
+* 📄 Pagination
+* 📦 Custom API Response Format
+* ⚡ Query Optimization (`select_related`, `prefetch_related`)
+* 🧪 Automated API Testing (`APITestCase`)
+* 🚀 CI Pipeline (GitHub Actions)
+* 📘 API Documentation (Swagger via drf-spectacular)
 
 ---
 
@@ -27,16 +30,17 @@ A production-ready Blog API built with Django REST Framework, implementing advan
 * Django
 * Django REST Framework
 * SimpleJWT
+* drf-spectacular (Swagger)
 * SQLite (can be replaced with PostgreSQL)
 
 ---
 
 ## 🔐 Authentication
 
-Uses JWT Authentication:
+JWT-based authentication:
 
-* Login → `/jwt/login/`
-* Refresh → `/jwt/refresh/`
+* Login → `/api/auth/login/`
+* Refresh → `/api/auth/refresh/`
 
 ### Header format:
 
@@ -44,7 +48,15 @@ Authorization: Bearer `<access_token>`
 
 ---
 
-## 📌 API Endpoints
+## 📌 API Structure
+
+### Versioned Base URL:
+
+```id="v1base"
+/api/v1/
+```
+
+---
 
 ### 📝 Posts
 
@@ -54,21 +66,89 @@ Authorization: Bearer `<access_token>`
 * `PUT /posts/{id}/`
 * `DELETE /posts/{id}/`
 
-### ⚙️ Custom
-
-* `GET /posts/my_posts/`
-* `GET /posts/{id}/comments/`
+---
 
 ### 💬 Comments
 
 * `POST /comments/`
-* Supports nested replies using `parent` field
+* Nested replies supported using `parent` field
+
+---
+
+### ⚙️ Custom Endpoints
+
+* `GET /posts/my_posts/`
+* `GET /posts/{id}/comments/`
+
+---
+
+## 📘 API Documentation
+
+Swagger UI available at:
+
+```id="swagger"
+/api/docs/
+```
+
+---
+
+## 🧪 Testing
+
+Run tests:
+
+```bash id="testcmd"
+python manage.py test
+```
+
+Includes:
+
+* API endpoint testing
+* Authentication testing
+* Permission validation
+
+---
+
+## 🔄 CI/CD (GitHub Actions)
+
+Automated pipeline runs on every push:
+
+* Install dependencies
+* Run tests
+* Validate code integrity
+
+---
+
+## 🧠 Architecture Decisions
+
+### 🔹 Service Layer
+
+Business logic is separated from views to:
+
+* Improve maintainability
+* Enable reusability
+* Simplify testing
+
+### 🔹 Custom Response Format
+
+Ensures consistent API responses across all endpoints.
+
+### 🔹 Soft Delete
+
+Prevents permanent data loss and allows recovery.
+
+### 🔹 API Versioning
+
+Ensures backward compatibility and future scalability.
+
+### 🔹 Query Optimization
+
+Used `select_related` and `prefetch_related` to reduce DB queries.
 
 ---
 
 ## 🧪 Example Request (Create Post)
 
-```json
+```json id="reqexample"
 {
   "title": "My Post",
   "content": "Content here",
@@ -79,20 +159,11 @@ Authorization: Bearer `<access_token>`
 
 ---
 
-## 🧠 Architecture Highlights
-
-* Clean Service Layer separation
-* Scalable permission system
-* Optimized database queries
-* Reusable utilities & components
-
----
-
 ## 🚀 Setup Instructions
 
-```bash
-git clone <your-repo-url>
-cd blog_api
+```bash id="setupcmd"
+git clone https://github.com/UMAR010FAROOQ/drf-blog-api.git
+cd drf-blog-api
 pip install -r requirements.txt
 python manage.py migrate
 python manage.py runserver
