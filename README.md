@@ -163,7 +163,7 @@ Used `select_related` and `prefetch_related` to reduce DB queries.
 
 ```bash id="setupcmd"
 git clone https://github.com/UMAR010FAROOQ/drf-blog-api.git
-cd drf-blog-api
+cd blog_api
 pip install -r requirements.txt
 python manage.py migrate
 python manage.py runserver
